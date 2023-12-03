@@ -5,12 +5,19 @@ bool ingrid(int x, int y, int n, int m){
     return (x >= 0 && x < n && y >= 0 && y < m);
 }
 void solve(int x, int y, int n, int m, int g[17][17], 
-            int *ans, int cur_ans, int dx[8], int dy[8], int available){
+            int *ans, int cur_ans, int dx[8], int dy[8]){
     
-    if(available + cur_ans <= *ans) return;
-    if(*ans < cur_ans) *ans = cur_ans;
+    int available = 0;
     x += (y)/m;
     y %= m;
+    for(int i = x;i < n;i++){
+        for(int j = 0;j < m;j++){
+            if(i == x && j < y) continue;
+            available += (g[i][j] == 0);
+        }
+    }
+    if(*ans < cur_ans) *ans = cur_ans;
+    if(available + cur_ans <= *ans) return;
 
     // stop the recursion here
     if(x == n || available <= 0){
@@ -19,11 +26,11 @@ void solve(int x, int y, int n, int m, int g[17][17],
     }
     // if the current place is not legal to put a knight on, then just go to the next one
     if(g[x][y]){
-        solve(x, y + 1, n, m, g, ans, cur_ans, dx, dy, available);
+        solve(x, y + 1, n, m, g, ans, cur_ans, dx, dy);
         return;
     }
     // don't put and go
-    solve(x, y + 1, n, m, g, ans, cur_ans, dx, dy, available);
+    solve(x, y + 1, n, m, g, ans, cur_ans, dx, dy);
 
     // put and go
     int new_places_being_attackted[8][2];
@@ -38,7 +45,7 @@ void solve(int x, int y, int n, int m, int g[17][17],
         new_places_being_attackted[places][1] = yy;
         places++;
     }
-    solve(x, y + 1, n, m, g, ans, cur_ans + 1, dx, dy, available - 1 - places);
+    solve(x, y + 1, n, m, g, ans, cur_ans + 1, dx, dy);
     // initialize to the previous state
     g[x][y] = 0;
     for(int i = 0;i < places;i++){
@@ -55,7 +62,6 @@ int main(){
     int dx[8] = {-2, -2, -1, -1, 1, 1, 2, 2};
     int dy[8] = {-1, 1, -2, 2, -2, 2, -1, 1};
     scanf("%d%d", &n, &m);
-    int availabe = n*m;
 
     for(int i = 0;i < n;i++){
         for(int j = 0;j < m;j++){
@@ -64,10 +70,9 @@ int main(){
     }
     while(scanf("%d%d", &x, &y) != EOF){
         g[x][y] = 1;
-        availabe --;
     }
     int ans = 0;
-    solve(0, 0, n, m, g, &ans, 0, dx, dy, availabe);
+    solve(0, 0, n, m, g, &ans, 0, dx, dy);
     printf("%d", ans);
 
     return 0;
