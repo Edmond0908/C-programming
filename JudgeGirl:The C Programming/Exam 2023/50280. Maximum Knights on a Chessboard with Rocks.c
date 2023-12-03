@@ -11,10 +11,13 @@ void solve(int x, int y, int n, int m, int g[17][17],
     if(*ans < cur_ans) *ans = cur_ans;
     x += (y)/m;
     y %= m;
+
+    // stop the recursion here
     if(x == n || available <= 0){
         if(*ans < cur_ans) *ans = cur_ans;
         return;
-    }     
+    }
+    // if the current place is not legal to put a knight on, then just go to the next one
     if(g[x][y]){
         solve(x, y + 1, n, m, g, ans, cur_ans, dx, dy, available);
         return;
