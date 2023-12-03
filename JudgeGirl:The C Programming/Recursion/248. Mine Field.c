@@ -22,10 +22,10 @@ void solve(int index, int dx[8], int dy[8], int have_to_clear, int g[9][9], int 
     // the place that will never be changed hasn't been cleared then this isn't the solution
     if(x < 7){
         for(int i = 0;i < 9;i++){
-            if(g[x - 2][i]) return;
+            if(g[x + 2][i]) return;
         }
     }
-    // check if the neibors have 0's
+    // check if the neibors have 0s
     int check = 1;
     for(int i = 0;i < 8;i++){
         int xx = x + dx[i];
@@ -66,8 +66,8 @@ void solve(int index, int dx[8], int dy[8], int have_to_clear, int g[9][9], int 
 
 int main(){
 
-    int g[9][9];
-    int ans[9][9];
+    int g[9][9] = {{0}};
+    int ans[9][9] = {{0}};
     int dx[8] = {-1, -1, -1, 0, 0, 1, 1, 1};
     int dy[8] = {-1, 0, 1, -1, 1, -1, 0, 1};
     int have_to_clear = 0;
@@ -78,6 +78,7 @@ int main(){
         }
     }
     solve(80, dx, dy, have_to_clear, g, ans);
+    printf("no solution\n");
 
     return 0;
 }
