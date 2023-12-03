@@ -36,7 +36,7 @@ void solve(int x, int y, int n, int m, int g[17][17],
         places++;
     }
     solve(x, y + 1, n, m, g, ans, cur_ans + 1, dx, dy, available - 1 - places);
-    // initialize the previous state
+    // initialize to the previous state
     g[x][y] = 0;
     for(int i = 0;i < places;i++){
         int xx = new_places_being_attackted[i][0];
