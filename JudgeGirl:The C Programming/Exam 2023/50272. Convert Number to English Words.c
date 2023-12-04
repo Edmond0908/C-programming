@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-#include <stdlib.h>]
+#include <stdlib.h>
  
 void print(int a,int b,int c,int t){
     char* dig[10]={"zero","one","two","three","four","five","six","seven","eight","nine"};
