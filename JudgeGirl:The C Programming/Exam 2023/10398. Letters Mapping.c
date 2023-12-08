@@ -21,13 +21,11 @@ void solve(int key, int ans[26], int used_num[10], int have[26], int cur_used, i
         }
         return;
     }
-    int u = alpha_order[cur_used];
-    for(int i = 1;i <= 9;i++){
+    for(int i = 0;i < 9;i++){
         if(used_num[i]) continue;
-        ans[u] = i;
         used_num[i] = 1;
+        ans[alpha_order[i]] = cur_used + 1;
         solve(key, ans, used_num, have, cur_used + 1, alpha_order);
-        //ans[u] = 0;
         used_num[i] = 0;
     }
 }
