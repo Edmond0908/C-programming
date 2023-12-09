@@ -41,6 +41,12 @@ void dfs(node* cur, int par, int height[1005]){
     dfs(cur -> left, u, height);
     dfs(cur -> right, u, height);
 }
+void print(node* cur){
+    if(cur == NULL) return;
+    printf("%d\n", cur -> key);
+    print(cur -> left);
+    print(cur -> right);
+}
 
 int main(){
 
@@ -48,10 +54,34 @@ int main(){
     int n, m;
     scanf("%d", &n);
     int data[1005][2];
-    int height[1005];
+    int height[1005] = {0};
+    int index[1005] = {0};
+
     for(int i = 0;i < n;i++){
         scanf("%d%d", &data[i][0], &data[i][1]);
     }
+
+
+    //dicrete the data
+    for(int i = 0;i < n;i++){
+        for(int j = 0;j < n - 1 - i;j++){
+            if(data[j][0] > data[j+1][0]){
+                int tmp[2];
+                tmp[0] = data[j][0];
+                tmp[1] = data[j][1];
+                data[j][0] = data[j+1][0];
+                data[j][1] = data[j+1][1];
+                data[j+1][0] = tmp[0];
+                data[j+1][1] = tmp[1];
+            }
+        }
+    }
+    for(int i = 0;i < n;i++){
+        index[i] = data[i][0];
+        data[i][0] = i;
+    }
+
+    //sorting
     for(int i = 0;i < n;i++){
         for(int j = 0;j < n - 1 - i;j++){
             if(data[j][1] > data[j+1][1]){
@@ -65,22 +95,26 @@ int main(){
             }
         }
     }
+
+    //discrete the data
     for(int i = 0;i < n;i++){
         root = insert(root, data[i][0]);
     }
     
-    height[0] = -1;
+    height[0] = 0;
     dfs(root, 0, height);
-    //for(int i = 1;i <= n;i++) printf("%d ", height[i]);
-    printf("\n");
 
     scanf("%d", &m);
     for(int i = 0;i < m;i++){
+        int k1, k2;
         int n1, n2;
-        scanf("%d", &n1, &n2);
+        scanf("%d%d", &k1, &k2);
+        for(int i = 0;i < n;i++){
+            if(index[i] == k1) n1 = i;
+            if(index[i] == k2) n2 = i;
+        }
         node* LCA = lca(root, n1, n2);
         int u = LCA -> key;
-        printf("%d %d %d ", u, height[n1], height[n2]);
         if(u == n1){
             printf("%d\n", height[n2] - height[n1]);
         }else if(u == n2){
