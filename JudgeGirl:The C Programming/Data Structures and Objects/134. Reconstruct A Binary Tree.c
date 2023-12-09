@@ -115,13 +115,7 @@ int main(){
         }
         node* LCA = lca(root, n1, n2);
         int u = LCA -> key;
-        if(u == n1){
-            printf("%d\n", height[n2] - height[n1]);
-        }else if(u == n2){
-            printf("%d\n", height[n1] - height[n2]);
-        }else{
-            printf("%d\n", height[n1] + height[n2] - 2 * height[u]);
-        }
+        printf("%d\n", height[n1] + height[n2] - 2 * height[u]);
     }
     
     return 0;
