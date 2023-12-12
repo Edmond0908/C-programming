@@ -32,7 +32,8 @@ node* lca(node* cur, int n1, int n2){
     node* right_lca = lca(cur -> right, n1, n2);
     if(left_lca && right_lca) return cur;
     if(left_lca) return left_lca;
-    return right_lca;
+    if(right_lca) return right_lca;
+    return NULL; // not found
 }
 
 int main(){
