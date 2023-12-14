@@ -1,7 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-#include "treeToList.h"
+
+typedef struct treenode{
+    int value;
+    struct treenode *left;
+    struct treenode *right;
+}TreeNode;
+ 
+typedef struct list {
+    struct treenode *head;
+    struct treenode *tail;
+}List;
 
 List rootList(TreeNode *root){
     List list;
