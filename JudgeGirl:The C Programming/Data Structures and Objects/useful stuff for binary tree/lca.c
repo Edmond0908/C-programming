@@ -24,16 +24,10 @@ node* insert(node* cur, int key){
     return cur;
 }
 node* lca(node* cur, int n1, int n2){
-    if(cur == NULL) return NULL;
-    if(cur -> key == n1 || cur -> key == n2){
-        return cur;
-    }
-    node* left_lca = lca(cur -> left, n1, n2);
-    node* right_lca = lca(cur -> right, n1, n2);
-    if(left_lca && right_lca) return cur;
-    if(left_lca) return left_lca;
-    if(right_lca) return right_lca;
-    return NULL; // not found
+    int k = cur -> key;
+    if(n1 < cur && n2 < cur) return lca(cur -> left, n1, n2);
+    if(n1 > cur && n2 > cur) return lca(cur -> right n1, n2);
+    return cur;
 }
 
 int main(){
