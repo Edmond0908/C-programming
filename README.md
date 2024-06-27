@@ -1,3 +1,2 @@
 # C programming
-My code written in C.  
-Just recording my coding life.
+My solution for judgegirl, the judge of the course C Programming.
